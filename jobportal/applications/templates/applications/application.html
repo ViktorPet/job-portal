@@ -1,0 +1,111 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load tz %}
+{% load widget_tweaks %}
+
+{% block body %}
+
+
+<div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+    <div class="container">
+        
+        <div class="row mx-0 justify-content-center">
+            <div class="col-md-7 col-lg-5 px-lg-2 col-xl-4 px-xl-0 px-xxl-3">
+            <form
+                method="POST"
+                class="w-100 rounded-1 p-4 border bg-white"               
+                enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% if form.errors %}
+                                <div class="alert alert-danger">
+                                    <ul class="mb-0">
+                                        {% for field in form %}
+                                            {% for error in field.errors %}
+                                                <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                                            {% endfor %}
+                                        {% endfor %}
+                                        {% for error in form.non_field_errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                    
+                        <label class="d-block mb-4">
+                            <span class="form-label d-block">First name</span>
+                            {{ form.firstname|add_class:"form-control" }}
+                        </label>
+                        <label class="d-block mb-4">
+                            <span class="form-label d-block">Last name</span>
+                            {{ form.lastname|add_class:"form-control" }}
+                        </label>
+
+
+                        <label class="d-block mb-4">
+                        <span class="form-label d-block">Email address</span>
+                            {{ form.email|add_class:"form-control" }}
+                        </label>
+
+                        <label class="d-block mb-4">
+                        <span class="form-label d-block">Gender</span>
+                            {{ form.gender|add_class:"form-select" }}
+                        </label>
+                        <label class="d-block mb-4">
+                            <span class="form-label d-block">Birthday</span>
+                            {{ form.birthday|add_class:"form-control" }} 
+                        </label>
+                        <label class="d-block mb-4">
+                            <span class="form-label d-block">Birthday</span>
+                            {{ form.year_of_graduation|add_class:"form-control" }}
+                        </label>
+
+                        <label class="d-block mb-4">
+                        <span class="form-label d-block">Education</span>
+                            {{ form.education|add_class:"form-control" }}
+                        </label>
+                        <label class="d-block mb-4">
+                        <span class="form-label d-block">Skills</span>
+                            {{ form.skills|add_class:"form-control" }}
+                        </label>
+                        <label class="d-block mb-4">
+                        <span class="form-label d-block">Languages</span>
+                            {{ form.languages|add_class:"form-control" }}
+                        </label>
+                        <label class="d-block mb-4">
+                        <span class="form-label d-block">Desired Salary</span>
+                            {{ form.desired_salary|add_class:"form-control" }}
+                        </label>                
+                        <label class="d-block mb-4">
+                        <span class="form-label d-block">Photo</span>
+                            {{ form.applicant_photo|add_class:"form-control" }}
+                        </label>
+                        <label class="d-block mb-4">
+                            <span class="form-label d-block">Photo</span>
+                                {{ form.applicant_cv|add_class:"form-control" }}
+                            </label>
+                        <label class="d-block mb-4">
+                        <span class="form-label d-block">Website</span>
+                            {{ form.website|add_class:"form-control" }}                
+                        </label>    
+
+                        
+
+                        <div class="mb-3">
+                        <button type="submit" class="btn btn-primary px-3 rounded-3">
+                            Save
+                        </button>
+                        </div>
+
+            
+            </form>
+            </div>
+        </div>
+        
+
+    </div>
+</div>
+
+
+<!-- Footer End -->
+{% endblock %}

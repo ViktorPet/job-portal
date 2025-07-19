@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+{% block body %}
+
+
+<div class="container py-5">
+    <div class="row">
+        <h1 class="text-2xl m-10">👨🏻 Yoy are registered , create profile</h1>
+        <br>
+        
+    </div>
+    <div class="row">
+        <a href="{% url 'accounts:employee_edit_profile' %}" class="nav-item nav-link">Create Profile</a>
+
+    </div>
+
+ </div>
+{% endblock %}

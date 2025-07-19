@@ -1,0 +1,2311 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v4",
+    "title": "reed.co.uk Courses API Reference",
+    "description": "\r\n# Introduction\r\n\r\n## Benefits\r\nConnecting with our APIs allows you and your product to fast track tasks that would otherwise take you and your team a lot of time and effort to perform manually.\r\n\r\nTypically, you and your team will have to rely on time consuming, error prone, repetitive, manual processes. Someone has to pick up every email that comes in and provide customers access to their course material in a process that will look something like the following:\r\n\r\n![alt text](/courses/resources/images/api/manual.png \"Manual process\")\r\n\r\nIf there is an influx of traffic (due to seasonality, marketing campaign or anything else), you will either need more staff allocation for this, or risk unhappy customers who will have to wait longer to gain access to your services. \r\n\r\nBut there is a better way. If you integrate with our APIs, this process could become fully automated and you could provide fast and seamless service regardless of your staff availability and ability, time of day or day of the week. This automated process could look more like this:\r\n\r\n![alt text](/courses/resources/images/api/automated.png \"Automated process\")\r\n\r\nThis can save your company time and money while improving customer satisfaction.\r\n\r\nAPIs aren't a silver bullet and do occasionally require maintenance. For example, when we release new features or implement a change. We will always communicate any changes that need your attention and where possible give you ample time to plan for this change.\r\n\r\nHere is a summary of the most common use cases:\r\n\r\n- Customer purchases a course on Reed.co.uk and your system automatically triggers an email confirming customer login details or welcome email.\r\n- Customer makes an enquiry on Reed.co.uk and the lead can be retrieved using your CRM system.\r\n- Automatically upload your content to reed.co.uk and keep it up-to-date.\r\n- Surface courses from reed.co.uk on your website.\r\n- The ability to retrieve basic course statistics. \r\n\r\n## Prerequisites\r\nreed.co.uk Courses API can be integrated into your systems with any programming language that supports a REST API. In order to get the most out of the API you will need  access to a web developer or programmer. Someone who has prior experience with REST APIs would be ideal.\r\n\r\nTo use the API, basic familiarity with software development and web services is required. At present, Reed.co.uk cannot provide support for this. You may want to consider [our Zapier integration](#section/Zapier-integration) as an alternative.\r\n\r\n## Engage Support\r\nOur API, while considered stable, is continually being improved upon. Please feel free to contact support team on ca.team@reedonline.co.uk if you believe that there is an issue with the API service..\r\n\r\n## Implementation Support Access\r\nIf you have questions relating to using a REST API, we strongly recommend you research online. At present we cannot provide dedicated support, but if you have any problems with the documentation please contact our team on ca.team@reedonline.co.uk\r\n\r\n# Obtaining Your API Credentials\r\n\r\nYou to get in touch with us in order to obtain your API credentials.\r\n\r\n### Existing course providers\r\n\r\nYour API credentials can be generated via the Reed Courses Provider platform.\r\n\r\nOnce signed in, you can find your credentials by clicking on your user name in the top right corner of the Provider platform and selecting Account from the dropdown menu.\r\n\r\nIf you scroll down, you can see a section entitled \"API settings\".\r\n\r\nCheck if you have API credentials generated already - look in the \"API token\" box. If you generate new API credentials and you already have existing credentials, your current API integrations will need to be updated.\r\n\r\nTo generate new API credentials, click \"Generate New Key\" and your new credentials will appear in the \"API token\" box.\r\n\r\n\r\n### Prospective course providers\r\nPlease contact our team on ca.team@reedonline.co.uk to discuss your needs and get you started.\r\n\r\n### Affiliates\r\nWe work with many affiliates and are eager to hear from you. \r\nPlease submit a short business case to ca.team@reedonline.co.uk and we can discuss potential opportunities further.\r\n\r\n# Versioning\r\nVersion numbers are enforced in the URL on all requests to API methods. The version number will be incremented on non backward compatible changes.\r\n\r\nDevelopers should expect that new elements could be added to the JSON response, within the current API version. \r\nIf elements are removed, we will generally release a new version of the API. The ordering of items within the data structures is not guaranteed.\r\n\r\n# Rate limiting\r\nBecause integrating with the API means there is little or no user-interaction, it can be very easy to create a program or routine that causes an unnecessarily high burden on our systems. \r\nGenerating huge numbers of API requests by accident can be expensive and taxing on our database.\r\n\r\nIn order to maintain a high quality of service and availability we ask that you avoid polling the API unnecessarily and avoid run-away usage.\r\n\r\nThere are limits to how many calls and changes you can make in a day. Clients may access a theoretical maximum of 200 requests per hour.\r\n\r\nRequests made when above the rate limit will result in a response with a status code of ```429 (Too Many Requests)```\r\n\r\nIf you need to increase your rate limit please contact us.\r\n\r\n# Zapier integration\r\n\r\nWe offer a Zapier integration which allows you to connect our APIs with a variety of popular third-party tools, including Salesforce and Zoho. This integration facilitates the seamless import of your Reed Courses leads/sales into your own CRM systems without any coding required.  Please ensure that your Zapier plan accommodates the number of leads/sales (tasks) you are receiving to avoid reaching Zapier's limits.\r\n\r\nTo gain access, you can sign up via this link: https://zapier.com/developer/public-invite/181447/6767bcf2e493ab4d0a46f86a7bb32771/.\r\n\r\nWhen setting up your first Zap (Zapier automation task) you’ll need to provide Zapier with API credentials Username and Password, in order for Zapier to access your Reed Courses account. \r\n\r\n![alt text](/courses/resources/images/api/zapier-login.png \"Zapier login\")\r\n\r\nProvide your Reed Courses API token in both the username and password field. See [Obtaining your API credentials](#section/Obtaining-Your-API-Credentials) section on how to get your API key.\r\n",
+    "contact": {
+      "name": "reed.co.uk",
+      "email": "ca.team@reedonline.co.uk"
+    },
+    "x-logo": {
+      "url": "/courses/resources/responsive/svg/sprites/reed-courses.svg"
+    }
+  },
+  "host": "www.reed.co.uk",
+  "basePath": "/courses/courses",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/api/v4/courses": {
+      "get": {
+        "tags": [
+          "Courses"
+        ],
+        "summary": "Search courses",
+        "description": "The reed.co.uk course search API allows developers to build applications using the power of the reed.co.uk Courses search engine. \r\nIt can be used to easily download our courses into your systems and you can add course search functionality into your application by passing through your \r\nuser's search criteria.",
+        "operationId": "Get courses",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "keywords",
+            "in": "query",
+            "description": "Keywords e.g. web design",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "description": "Filters classrooms by the specified location. \r\n\r\nNote: Online courses are always returned if relevant regardless of the location specified as they are globally accessible.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "geoLocation.longitude",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double",
+            "maximum": 180,
+            "minimum": -180
+          },
+          {
+            "name": "geoLocation.latitude",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double",
+            "maximum": 90,
+            "minimum": -90
+          },
+          {
+            "name": "geoLocation.radius",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "providerId",
+            "in": "query",
+            "description": "Only return courses for a specific provider",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "providerIds",
+            "in": "query",
+            "description": "Return courses for multiple providers. This parameter overwrites ProviderId",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "discount",
+            "in": "query",
+            "description": "Returns courses that are on discount",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Allows you to specify any extra fields you require in the response.\r\n\r\nAvailable values: all, excerpt, locations, provider\r\n\r\nExample ?fields=excerpt&amp;fields=locations",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "MostRelevant",
+            "enum": [
+              "MostRelevant",
+              "MostPopular",
+              "PriceAsc",
+              "PriceDesc",
+              "Distance",
+              "HighestRated",
+              "RecentlyAdded"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "If more than one page of results are returned this parameter will allow you to paginate across the resultset.",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "maximum": 2147483647,
+            "minimum": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 25,
+            "maximum": 2147483647,
+            "minimum": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CourseSearchResultApiModel"
+            }
+          }
+        }
+      }
+    },
+    "/api/v4/providers/leads": {
+      "get": {
+        "tags": [
+          "Provider leads"
+        ],
+        "summary": "Get leads",
+        "description": "Use the Leads API to pull leads into your CRM system, allocate them to the right teams and have them followed up directly from your CRM system.\r\nThe data from the Leads is immutable (unchangeable), meaning that once it is in our system, it does not change, and you do not need to request the data more than once.",
+        "operationId": "LeadsV4_Get",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Leads since the date &amp; time specified\r\nDefault: Today's date at 00:00",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "Leads up to the date &amp; time specified\r\nDefault: Tomorrow's date at 00:00",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "If more than one page of results are returned this parameter will allow you to paginate across the resultset.",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "maximum": 2147483647,
+            "minimum": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Number of results per page",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 25,
+            "maximum": 100,
+            "minimum": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProviderLeadsModel"
+            }
+          }
+        }
+      }
+    },
+    "/api/v4/providers/orders": {
+      "get": {
+        "tags": [
+          "Provider orders"
+        ],
+        "summary": "Get orders",
+        "description": "Use the Orders API to fulfil ecommerce orders and trigger customer registration automatically.\r\nThe data from the Leads is immutable (unchangeable), meaning that once it is in our system, it does not change, and you do not need to request the data more than once.",
+        "operationId": "OrdersV4_Get",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Orders since the date &amp; time specified\r\nDefault: Today's date at 00:00",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "Orders up to the date &amp; time specified\r\nDefault: Tomorrow's date at 00:00",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "If more than one page of results are returned this parameter will allow you to paginate across the resultset.",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "maximum": 2147483647,
+            "minimum": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Number of results per page",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 25,
+            "maximum": 100,
+            "minimum": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProviderOrdersModel"
+            }
+          }
+        }
+      }
+    },
+    "/api/v4/providers/courses": {
+      "get": {
+        "tags": [
+          "Provider courses"
+        ],
+        "summary": "Get all courses",
+        "description": "Returns all the courses from your account",
+        "operationId": "ProviderCoursesV4_Get",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Courses will be returned based on the status provided",
+            "required": false,
+            "type": "string",
+            "default": "Live",
+            "enum": [
+              "Live",
+              "Archived",
+              "Draft"
+            ]
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "Created",
+            "enum": [
+              "Title",
+              "Created",
+              "Updated"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "If more than one page of results are returned this parameter will allow you to paginate across the resultset.",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "maximum": 2147483647,
+            "minimum": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Number of results per page",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 25,
+            "maximum": 100,
+            "minimum": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/AllCoursesApiModel"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Provider courses"
+        ],
+        "summary": "Post course",
+        "description": "Post a new course",
+        "operationId": "ProviderCoursesV4_Post",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "course",
+            "in": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CourseModel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Demo Mode: Valid post",
+            "schema": {
+              "$ref": "#/definitions/ProviderCourseApiModel"
+            }
+          },
+          "201": {
+            "description": "Course created",
+            "schema": {
+              "$ref": "#/definitions/ProviderCourseApiModel"
+            }
+          },
+          "400": {
+            "description": "Bad request, please check validation error messages"
+          }
+        }
+      }
+    },
+    "/api/v4/providers/courses/{courseId}": {
+      "get": {
+        "tags": [
+          "Provider courses"
+        ],
+        "summary": "Get course",
+        "description": "Get a course via it's id",
+        "operationId": "ProviderCoursesV4_Get",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "description": "The ID of the course",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ProviderCourseApiModel"
+            }
+          },
+          "404": {
+            "description": "Course with specified id not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Provider courses"
+        ],
+        "summary": "Put course",
+        "description": "Update an existing course",
+        "operationId": "ProviderCoursesV4_Put",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "description": "The ID of the course",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "model",
+            "in": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CourseModel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course updated",
+            "schema": {
+              "$ref": "#/definitions/ProviderCourseApiModel"
+            }
+          },
+          "400": {
+            "description": "Bad request, please check validation error messages"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Provider courses"
+        ],
+        "summary": "Patch course",
+        "description": "Partially update a course\r\nSample request:\r\n\r\n    [{ \"op\": \"replace\", \"path\": \"/status\", \"value\": \"archived\" }]",
+        "operationId": "ProviderCoursesV4_Patch",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "model",
+            "in": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/JsonPatchDocument[CourseModel]"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course updated",
+            "schema": {
+              "$ref": "#/definitions/ProviderCourseApiModel"
+            }
+          },
+          "400": {
+            "description": "Bad request, please check validation error messages"
+          }
+        }
+      }
+    },
+    "/api/v4/qualifications/awarding-bodies": {
+      "get": {
+        "tags": [
+          "Qualifications"
+        ],
+        "summary": "Get all awarding bodies",
+        "operationId": "QualificationsV4_GetAwardingBodies",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/QualficationModel"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v4/qualifications/qualifications": {
+      "get": {
+        "tags": [
+          "Qualifications"
+        ],
+        "summary": "Get all qualifications",
+        "operationId": "QualificationsV4_GetQualifications",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/QualficationModel"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v4/subjects": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Get all",
+        "operationId": "SubjectsV4_Get",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SubjectModel"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CourseSearchApiCriteria": {
+      "type": "object",
+      "properties": {
+        "keywords": {
+          "description": "Keywords e.g. web design",
+          "type": "string"
+        },
+        "location": {
+          "description": "Filters classrooms by the specified location. \r\n\r\nNote: Online courses are always returned if relevant regardless of the location specified as they are globally accessible.",
+          "type": "string"
+        },
+        "geoLocation": {
+          "$ref": "#/definitions/Spatial",
+          "description": "Allows geo spatial searching via longitude, latitude and radius (miles).\r\n\r\nNote: If geoLocation is passed in the location parameter is ignored."
+        },
+        "providerId": {
+          "format": "int32",
+          "description": "Only return courses for a specific provider",
+          "type": "integer"
+        },
+        "providerIds": {
+          "description": "Return courses for multiple providers. This parameter overwrites ProviderId",
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "discount": {
+          "description": "Returns courses that are on discount",
+          "type": "boolean"
+        },
+        "fields": {
+          "description": "Allows you to specify any extra fields you require in the response.\r\n\r\nAvailable values: all, excerpt, locations, provider\r\n\r\nExample ?fields=excerpt&amp;fields=locations",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "orderBy": {
+          "default": "MostRelevant",
+          "enum": [
+            "MostRelevant",
+            "MostPopular",
+            "PriceAsc",
+            "PriceDesc",
+            "Distance",
+            "HighestRated",
+            "RecentlyAdded"
+          ],
+          "type": "string"
+        },
+        "page": {
+          "format": "int32",
+          "description": "If more than one page of results are returned this parameter will allow you to paginate across the resultset.",
+          "default": 1,
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "pageSize": {
+          "format": "int32",
+          "default": 25,
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        }
+      }
+    },
+    "Spatial": {
+      "type": "object",
+      "properties": {
+        "longitude": {
+          "format": "double",
+          "maximum": 180,
+          "minimum": -180,
+          "type": "number"
+        },
+        "latitude": {
+          "format": "double",
+          "maximum": 90,
+          "minimum": -90,
+          "type": "number"
+        },
+        "radius": {
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "CourseSearchResultApiModel": {
+      "type": "object",
+      "properties": {
+        "totalItemCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalPages": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "courses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SearchCourseModel"
+          }
+        },
+        "criteria": {
+          "$ref": "#/definitions/CourseSearchApiCriteria"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        }
+      }
+    },
+    "SearchCourseModel": {
+      "type": "object",
+      "properties": {
+        "courseId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "studyMethod": {
+          "type": "string"
+        },
+        "isBeginner": {
+          "type": "boolean"
+        },
+        "isIntermediate": {
+          "type": "boolean"
+        },
+        "isAdvanced": {
+          "type": "boolean"
+        },
+        "duration": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "durationUnit": {
+          "description": "Hours, Days, Weeks, Months, Years",
+          "type": "string"
+        },
+        "isPartTime": {
+          "type": "boolean"
+        },
+        "isFullTime": {
+          "type": "boolean"
+        },
+        "priceFrom": {
+          "format": "double",
+          "type": "number"
+        },
+        "priceTo": {
+          "format": "double",
+          "type": "number"
+        },
+        "discountPrice": {
+          "format": "double",
+          "type": "number"
+        },
+        "discountStartDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "discountEndDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "qualifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QualificatonModel"
+          }
+        },
+        "priceText": {
+          "type": "string"
+        },
+        "durationText": {
+          "type": "string"
+        },
+        "excerpt": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "locationsSummary": {
+          "type": "string"
+        },
+        "locations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SearchCourseLocationModel"
+          }
+        },
+        "provider": {
+          "$ref": "#/definitions/SearchCourseProviderModel"
+        },
+        "isFree": {
+          "type": "boolean"
+        },
+        "showPrice": {
+          "type": "boolean"
+        },
+        "examIncluded": {
+          "type": "boolean"
+        },
+        "hasTutorAvailable": {
+          "type": "boolean"
+        },
+        "isUkOnly": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string"
+        },
+        "isApprenticeship": {
+          "type": "boolean"
+        },
+        "isRegulated": {
+          "type": "boolean"
+        },
+        "allowBuyNow": {
+          "type": "boolean"
+        },
+        "allowEnquiry": {
+          "type": "boolean"
+        },
+        "isSponsored": {
+          "type": "boolean"
+        },
+        "subjectNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "classrooms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isConsumer": {
+          "type": "boolean"
+        },
+        "isBusiness": {
+          "type": "boolean"
+        },
+        "providerId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "savingText": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        }
+      }
+    },
+    "Link": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "rel": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        }
+      }
+    },
+    "QualificatonModel": {
+      "type": "object",
+      "properties": {}
+    },
+    "SearchCourseLocationModel": {
+      "type": "object",
+      "properties": {
+        "locationName": {
+          "type": "string"
+        },
+        "distanceInMiles": {
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "SearchCourseProviderModel": {
+      "type": "object",
+      "properties": {
+        "providerId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "smallLogoUrl": {
+          "type": "string"
+        },
+        "mediumLogoUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "ProviderLeadsCriteria": {
+      "description": "Something good?",
+      "type": "object",
+      "properties": {
+        "from": {
+          "format": "date-time",
+          "description": "Leads since the date &amp; time specified\r\nDefault: Today's date at 00:00",
+          "type": "string"
+        },
+        "to": {
+          "format": "date-time",
+          "description": "Leads up to the date &amp; time specified\r\nDefault: Tomorrow's date at 00:00",
+          "type": "string"
+        },
+        "page": {
+          "format": "int32",
+          "description": "If more than one page of results are returned this parameter will allow you to paginate across the resultset.",
+          "default": 1,
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "pageSize": {
+          "format": "int32",
+          "description": "Number of results per page",
+          "default": 25,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer"
+        }
+      }
+    },
+    "ProviderLeadsModel": {
+      "type": "object",
+      "properties": {
+        "totalItemCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalPages": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "leads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LeadModel"
+          }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        }
+      }
+    },
+    "LeadModel": {
+      "type": "object",
+      "properties": {
+        "enquiryId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "courseId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "courseInterest": {
+          "type": "string"
+        },
+        "createdOn": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "addressLine1": {
+          "type": "string"
+        },
+        "postcode": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "questionOrMessage": {
+          "type": "string"
+        },
+        "employmentStatus": {
+          "type": "string"
+        },
+        "contactTime": {
+          "type": "string"
+        },
+        "startAvailibility": {
+          "type": "string"
+        },
+        "isBusiness": {
+          "type": "boolean"
+        },
+        "companyName": {
+          "type": "string"
+        },
+        "companyJobTitle": {
+          "type": "string"
+        },
+        "companySize": {
+          "enum": [
+            "UpToFifty",
+            "UpToHundred",
+            "UpToFiveHundred",
+            "MoreThanFiveHundred",
+            "MoreThanOneThousand"
+          ],
+          "type": "string"
+        },
+        "participants": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "enquiryType": {
+          "enum": [
+            "Form",
+            "Referral",
+            "Provider",
+            "Search",
+            "LandingPage",
+            "CareerAdvice",
+            "SearchForm",
+            "SearchReferral",
+            "CompareForm",
+            "CompareReferral",
+            "Phone",
+            "QuickForm",
+            "ProfileReferral"
+          ],
+          "type": "string"
+        },
+        "screeningQuestions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ScreeningQuestionModel"
+          }
+        },
+        "course": {
+          "$ref": "#/definitions/CourseLiteModel"
+        },
+        "venueName": {
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "ScreeningQuestionModel": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "expectedAnswer": {
+          "type": "string"
+        }
+      }
+    },
+    "CourseLiteModel": {
+      "type": "object",
+      "properties": {
+        "courseId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "providerCourseRef": {
+          "type": "string"
+        }
+      }
+    },
+    "ProviderTransactionsCriteria": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "format": "date-time",
+          "description": "Orders since the date &amp; time specified\r\nDefault: Today's date at 00:00",
+          "type": "string"
+        },
+        "to": {
+          "format": "date-time",
+          "description": "Orders up to the date &amp; time specified\r\nDefault: Tomorrow's date at 00:00",
+          "type": "string"
+        },
+        "page": {
+          "format": "int32",
+          "description": "If more than one page of results are returned this parameter will allow you to paginate across the resultset.",
+          "default": 1,
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "pageSize": {
+          "format": "int32",
+          "description": "Number of results per page",
+          "default": 25,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer"
+        }
+      }
+    },
+    "ProviderOrdersModel": {
+      "type": "object",
+      "properties": {
+        "totalItemCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalPages": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderModel"
+          }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        }
+      }
+    },
+    "OrderModel": {
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "createdOn": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "buyer": {
+          "$ref": "#/definitions/BillingAddressModel"
+        },
+        "orderItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderItemModel"
+          }
+        },
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "BillingAddressModel": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "addressLine1": {
+          "type": "string"
+        },
+        "addressLine2": {
+          "type": "string"
+        },
+        "addressLine3": {
+          "type": "string"
+        },
+        "town": {
+          "type": "string"
+        },
+        "county": {
+          "type": "string"
+        },
+        "postcode": {
+          "type": "string"
+        },
+        "isBusiness": {
+          "type": "boolean"
+        },
+        "country": {
+          "type": "string"
+        },
+        "companyName": {
+          "type": "string"
+        },
+        "companyJobTitle": {
+          "type": "string"
+        },
+        "companySize": {
+          "enum": [
+            "UpToFifty",
+            "UpToHundred",
+            "UpToFiveHundred",
+            "MoreThanFiveHundred",
+            "MoreThanOneThousand"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    "OrderItemModel": {
+      "type": "object",
+      "properties": {
+        "productId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "providerProductRef": {
+          "type": "string"
+        },
+        "productTitle": {
+          "type": "string"
+        },
+        "priceIncVAT": {
+          "format": "double",
+          "type": "number"
+        },
+        "priceExVAT": {
+          "format": "double",
+          "type": "number"
+        },
+        "student": {
+          "$ref": "#/definitions/ContactModel"
+        },
+        "classroomBooking": {
+          "$ref": "#/definitions/ClassroomBookingModel"
+        },
+        "virtualClassBooking": {
+          "$ref": "#/definitions/VirtualClassBookingModel"
+        }
+      }
+    },
+    "ContactModel": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "addressLine1": {
+          "type": "string"
+        },
+        "addressLine2": {
+          "type": "string"
+        },
+        "addressLine3": {
+          "type": "string"
+        },
+        "town": {
+          "type": "string"
+        },
+        "county": {
+          "type": "string"
+        },
+        "postcode": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      }
+    },
+    "ClassroomBookingModel": {
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "endDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "venueAddressLine1": {
+          "type": "string"
+        },
+        "venueAddressLine2": {
+          "type": "string"
+        },
+        "venueTown": {
+          "type": "string"
+        },
+        "venueCounty": {
+          "type": "string"
+        },
+        "venuePostcode": {
+          "type": "string"
+        }
+      }
+    },
+    "VirtualClassBookingModel": {
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "endDate": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "ProviderCoursesCriteria": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "Courses will be returned based on the status provided",
+          "default": "Live",
+          "enum": [
+            "Live",
+            "Archived",
+            "Draft"
+          ],
+          "type": "string"
+        },
+        "orderBy": {
+          "default": "Created",
+          "enum": [
+            "Title",
+            "Created",
+            "Updated"
+          ],
+          "type": "string"
+        },
+        "page": {
+          "format": "int32",
+          "description": "If more than one page of results are returned this parameter will allow you to paginate across the resultset.",
+          "default": 1,
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "pageSize": {
+          "format": "int32",
+          "description": "Number of results per page",
+          "default": 25,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer"
+        }
+      }
+    },
+    "AllCoursesApiModel": {
+      "type": "object",
+      "properties": {
+        "totalItemCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalPages": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "courses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CourseApiModel"
+          }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        }
+      }
+    },
+    "CourseApiModel": {
+      "type": "object",
+      "properties": {
+        "course": {
+          "$ref": "#/definitions/CourseModel"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        }
+      }
+    },
+    "CourseModel": {
+      "required": [
+        "title",
+        "studyMethod",
+        "overview",
+        "description",
+        "priceFrom",
+        "priceTo",
+        "subjects"
+      ],
+      "type": "object",
+      "properties": {
+        "courseId": {
+          "format": "int32",
+          "description": "The ID of the course (Read-only)",
+          "type": "integer"
+        },
+        "title": {
+          "description": "Note: Course title must be unique. Attempts to create or update a course with a title used by an existing live course in your Course Provider account will fail.",
+          "maxLength": 90,
+          "minLength": 20,
+          "type": "string"
+        },
+        "subtitle": {
+          "maxLength": 120,
+          "minLength": 0,
+          "type": "string"
+        },
+        "paymentOptions": {
+          "description": "Indicate whether your course offers finance options to students who are interested in this course. Finance options such as the ability to pay by instalments would fall in this category. \r\nMax length: 900 characters",
+          "maxLength": 900,
+          "minLength": 0,
+          "type": "string"
+        },
+        "studyMethod": {
+          "description": "Note: If Classroom is specified then property classrooms is required. Software is obsolete",
+          "enum": [
+            "Online",
+            "Classroom",
+            "DistanceLearning",
+            "OnSite",
+            "OnlineWithLiveClasses",
+            "DistanceLearningWithLiveClasses",
+            "Blended"
+          ],
+          "type": "string"
+        },
+        "courseFormat": {
+          "description": "Indicate to students how the majority of the course is delivered. Note: This is only valid for online courses.",
+          "enum": [
+            "Video",
+            "Audio",
+            "ReadingMaterial"
+          ],
+          "type": "string"
+        },
+        "courseFormatOptions": {
+          "description": "Select options that may apply to your selected course format.",
+          "type": "array",
+          "items": {
+            "enum": [
+              "VideoWithSubtitles",
+              "VideoWithTranscript",
+              "VideoWithSignLanguage",
+              "ReadingMaterialPdfOrEbook",
+              "ReadingMaterialSlides",
+              "ReadingMaterialArticleOrPlainText"
+            ],
+            "type": "string"
+          }
+        },
+        "overview": {
+          "description": "Length: 50 characters minimum. 4,800 characters maximum.",
+          "maxLength": 4800,
+          "minLength": 50,
+          "type": "string"
+        },
+        "description": {
+          "description": "A full description of the course some basic HTML formatting allowed (p, ul, b, strong).\r\nLength: 300 characters minimum. 7,500 characters maximum.",
+          "maxLength": 7500,
+          "minLength": 300,
+          "type": "string"
+        },
+        "isBeginner": {
+          "description": "The course requires basic prior knowledge of the subject\r\nNote: At least one of the following must be set to true IsBeginner, IsIntermediate or IsAdvanced",
+          "type": "boolean"
+        },
+        "isIntermediate": {
+          "description": "The course requires some prior knowledge of the subject\r\nNote: At least one of the following must be set to true IsBeginner, IsIntermediate or IsAdvanced",
+          "type": "boolean"
+        },
+        "isAdvanced": {
+          "description": "The course requires prior knowledge of the subject\r\nNote: At least one of the following must be set to true IsBeginner, IsIntermediate or IsAdvanced",
+          "type": "boolean"
+        },
+        "providerCourseRef": {
+          "description": "The identifier used to match courses in your site e.g. your course id. \r\nThis value is returned when using the provider leads API allowing you to match enquiries to the courses in your system.",
+          "maxLength": 256,
+          "minLength": 0,
+          "type": "string"
+        },
+        "isPartTime": {
+          "description": "Set to true if course can be undertaken part-time.\r\nNote: At least one of the following parameters must be set to true IsFullTime, IsPartTime.",
+          "type": "boolean"
+        },
+        "isFullTime": {
+          "description": "Set to true if course requires full-time study.\r\nNote: At least one of the following parameters must be set to true IsFullTime, IsPartTime.",
+          "type": "boolean"
+        },
+        "careerPath": {
+          "description": "What career roles are available after doing this course\r\nMax length: 400 characters",
+          "maxLength": 400,
+          "minLength": 0,
+          "type": "string"
+        },
+        "audience": {
+          "description": "Who is this course for?\r\nMax length: 4,000 characters",
+          "maxLength": 4000,
+          "minLength": 0,
+          "type": "string"
+        },
+        "requirements": {
+          "description": "Any requirements before doing the course these could be other courses or technical e.g photoshop.\r\nMax length: 640",
+          "maxLength": 640,
+          "minLength": 0,
+          "type": "string"
+        },
+        "showPrice": {
+          "description": "Allows you to hide the price.\r\nNote: eCommerce courses must be set to true.",
+          "default": true,
+          "type": "boolean"
+        },
+        "priceFrom": {
+          "format": "double",
+          "type": "number"
+        },
+        "priceTo": {
+          "format": "double",
+          "description": "Allows you to show or hide the price.\r\nNote: For eCommerce courses, the PriceTo must be the same as the PriceFrom.",
+          "type": "number"
+        },
+        "discountPrice": {
+          "format": "double",
+          "description": "The special offer price of the course.\r\nCourses with a DiscountPrice must specify a DiscountEndDate.",
+          "type": "number"
+        },
+        "discountStartDate": {
+          "format": "date-time",
+          "description": "The date which the special offer price will begin.\r\nDefaults to today if DiscountEndDate is set.",
+          "type": "string"
+        },
+        "discountEndDate": {
+          "format": "date-time",
+          "description": "The date which the special offer price will end.",
+          "type": "string"
+        },
+        "universityQualification": {
+          "$ref": "#/definitions/CourseUniversityQualificationModel"
+        },
+        "qualifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CourseQualificationModel"
+          }
+        },
+        "cpd": {
+          "$ref": "#/definitions/CourseCpdModel"
+        },
+        "examIncluded": {
+          "description": "- true = Moderated exam(s) or assessment(s) are included in the price\r\n- false = Moderated exam(s) or assessment(s) must be purchased separately\r\n- null = There are no moderated exam(s) or assessment(s)",
+          "type": "boolean"
+        },
+        "higherEducation": {
+          "description": "- true = This is a higher education qualification\r\n- false = This is not a higher education qualification\r\nNote: Only applicable to University course providers",
+          "default": false,
+          "type": "boolean"
+        },
+        "ucasPointsAwarded": {
+          "description": "- true = This course awards UCAS points\r\n- false = This course does not award UCAS points\r\nNote: Only applicable on Higher Education courses",
+          "default": false,
+          "type": "boolean"
+        },
+        "totumCardIncluded": {
+          "description": "- true = TOTUM card is included in price.\r\n- false = TOTUM card is available, but is not included in price.\r\n- null = Course does not meet the criteria for TOTUM card eligibility.",
+          "type": "boolean"
+        },
+        "certificateIncluded": {
+          "description": "Only applicable to courses that are not CPD or have any qualification\r\n- true = Certificate of completion available and is included in the price\r\n- false = Certificate of completion available to purchase separately\r\n- null = There is no certificate of completion for this course",
+          "type": "boolean"
+        },
+        "enquiryEmail": {
+          "description": "An alternate email to send enquiries to for this specific course\r\nDefault: The enquiry email specified in your profile",
+          "maxLength": 75,
+          "minLength": 0,
+          "type": "string"
+        },
+        "enquiryPhone": {
+          "description": "Phone number to display on the course (Readonly)",
+          "maxLength": 32,
+          "minLength": 0,
+          "type": "string"
+        },
+        "enquiryUrl": {
+          "description": "If enabled in providers profile allows course to have enquiry take user to an external site",
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
+        },
+        "fundingOptions": {
+          "description": "Indicate whether your course offers funding options. Funding options such as government funding, bursaries, scholarships and learning grants would fall in this category. \r\nMax length: 900 characters",
+          "maxLength": 900,
+          "minLength": 0,
+          "type": "string"
+        },
+        "hasTutorAvailable": {
+          "type": "boolean"
+        },
+        "isApprenticeship": {
+          "type": "boolean"
+        },
+        "duration": {
+          "format": "int32",
+          "description": "The length of study required for course completion should be used in conjunction with durationUnit",
+          "maximum": 1000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "durationUnit": {
+          "enum": [
+            "Hours",
+            "Days",
+            "Weeks",
+            "Months",
+            "Years"
+          ],
+          "type": "string"
+        },
+        "costPerLead": {
+          "format": "double",
+          "description": "Cost per lead (Readonly)",
+          "type": "number"
+        },
+        "status": {
+          "description": "Status must be set to \"Live\" or \"Draft\" to post a course.",
+          "enum": [
+            "Live",
+            "Archived",
+            "Suspended",
+            "Deleted",
+            "Draft",
+            "Pending",
+            "Blocked"
+          ],
+          "type": "string"
+        },
+        "allowBuyNow": {
+          "description": "If set to false disables the Buy now button on the course.",
+          "default": true,
+          "type": "boolean"
+        },
+        "allowEnquiries": {
+          "description": "If set to false disables the enquiry button on the course.",
+          "default": true,
+          "type": "boolean"
+        },
+        "subjects": {
+          "description": "Allowed up to 3 subjects.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CourseSubjectModel"
+          }
+        },
+        "classrooms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CourseClassroomModel"
+          }
+        },
+        "screeningQuestions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CourseScreeningQuestionModel"
+          }
+        },
+        "media": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CourseMediaModel"
+          }
+        },
+        "demoMode": {
+          "description": "Set to true when testing the API. This allows you to make requests and test validation without courses being added or updated.",
+          "default": false,
+          "type": "boolean"
+        },
+        "hiddenPriceReason": {
+          "description": "If showPrice is false you can specify why the price is hidden.",
+          "maxLength": 400,
+          "minLength": 0,
+          "type": "string"
+        },
+        "isConsumer": {
+          "description": "The course is for individuals.",
+          "default": true,
+          "type": "boolean"
+        },
+        "isBusiness": {
+          "description": "The course is tailored for businesses.",
+          "default": true,
+          "type": "boolean"
+        },
+        "vatRate": {
+          "description": "The VAT rate for this course.",
+          "default": "Standard",
+          "enum": [
+            "Standard",
+            "Exempt"
+          ],
+          "type": "string"
+        },
+        "accessType": {
+          "description": "The length for which the student will have access to course materials. (Optional.)\r\nThis only applies to online, self paced courses.",
+          "enum": [
+            "Lifetime",
+            "UntilCourseCompletion",
+            "FixedTime"
+          ],
+          "type": "string"
+        },
+        "accessTime": {
+          "format": "int32",
+          "description": "The length of time the student can access the course. This should be used in conjunction with AccessTimeUnit.\r\nThis only applies to courses with an access type of fixed time.",
+          "maximum": 1000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "accessTimeUnit": {
+          "enum": [
+            "Hours",
+            "Days",
+            "Weeks",
+            "Months",
+            "Years"
+          ],
+          "type": "string"
+        },
+        "endorsingBodyId": {
+          "format": "int32",
+          "description": "The Id of the awarding body which endorses this course.\r\nThis is for courses which are endorsed by an awarding body, but do not have a formal qualification.",
+          "type": "integer"
+        },
+        "virtualClassDates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CourseDateModel"
+          }
+        },
+        "certificates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CourseCertificateModel"
+          }
+        },
+        "hasJobGuarantee": {
+          "description": "Indicate whether this course includes a job guarantee programme.\r\nThis would mean that this course includes a programme which will help place students into a job after completing the course.",
+          "type": "boolean"
+        }
+      },
+      "example": {
+        "title": "Become a vigilante",
+        "subtitle": "Learn in a hands-on fashion how to be the best vigilante you can be!",
+        "paymentOptions": "This course can be paid for in monthly instalments.",
+        "studyMethod": "Online",
+        "courseFormat": "Video",
+        "courseFormatOptions": [
+          "VideoWithSubtitles",
+          "VideoWithSignLanguage"
+        ],
+        "overview": "Become a crime fighting vigilante just like Batman!",
+        "description": "Never underestimate Gotham City. People get mugged coming home from work every day of the week. Sometimes things just go bad. There is a prison in a more ancient part of the world. A pit where men are thrown to suffer and die. But sometimes a man rises from the darkness. Sometimes, the pit sends something back.",
+        "isBeginner": true,
+        "isIntermediate": true,
+        "isAdvanced": false,
+        "providerCourseRef": "Batman01",
+        "isPartTime": true,
+        "isFullTime": false,
+        "careerPath": "You get to become Batman's sidekick",
+        "showPrice": true,
+        "priceFrom": 100.0,
+        "priceTo": 100.0,
+        "qualifications": [
+          {
+            "qualificationId": 1337,
+            "awardingBodyId": 10,
+            "subject": "Vigilante Level 1",
+            "isProfessional": false
+          }
+        ],
+        "examIncluded": true,
+        "higherEducation": false,
+        "ucasPointsAwarded": false,
+        "totumCardIncluded": true,
+        "hasTutorAvailable": true,
+        "isApprenticeship": false,
+        "duration": 15,
+        "durationUnit": "Hours",
+        "status": "Live",
+        "allowBuyNow": true,
+        "allowEnquiries": true,
+        "subjects": [
+          {
+            "subjectId": 185
+          }
+        ],
+        "classrooms": [],
+        "screeningQuestions": [],
+        "media": [],
+        "demoMode": false,
+        "isConsumer": true,
+        "isBusiness": false,
+        "vatRate": "Standard",
+        "virtualClassDates": [],
+        "certificates": [],
+        "hasJobGuarantee": false
+      }
+    },
+    "CourseUniversityQualificationModel": {
+      "required": [
+        "name"
+      ],
+      "type": "object",
+      "properties": {
+        "fheqQualificationType": {
+          "description": "The type of qualification according to the FHEQ",
+          "enum": [
+            "CertHeDipHe",
+            "FoundationDegree",
+            "BachelorsDegree",
+            "GraduateCertificateGraduateDiploma",
+            "PgCertPgDip",
+            "MastersDegree",
+            "Doctorate"
+          ],
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 90,
+          "minLength": 0,
+          "type": "string"
+        },
+        "recognisedBodyId": {
+          "format": "int32",
+          "description": "This is ID of the recognised body (awarding body) which will award the qualification\r\nThis is required if the course has an FHEQ qualification type",
+          "type": "integer"
+        },
+        "foundationCourseType": {
+          "description": "Specifies whether this course is, or whether this course includes a foundation year",
+          "enum": [
+            "FoundationYear",
+            "PremastersProgramme",
+            "IntegratedMasters"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    "CourseQualificationModel": {
+      "required": [
+        "qualificationId",
+        "awardingBodyId"
+      ],
+      "type": "object",
+      "properties": {
+        "qualificationId": {
+          "format": "int32",
+          "description": "You can find a list of our qualifications, and their IDs, by using the Qualifications - Get all qualifications API",
+          "type": "integer"
+        },
+        "awardingBodyId": {
+          "format": "int32",
+          "description": "You can find a list of our awarding bodies, and their IDs, by using the Qualifications - Get all awarding bodies API",
+          "type": "integer"
+        },
+        "subject": {
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
+        },
+        "regulatingBody": {
+          "description": "Not applicable to HigherEducation courses as they are assumed to be already regulated.",
+          "enum": [
+            "Ofqual",
+            "CCEA",
+            "CymwysterauCymru",
+            "SQA",
+            "QQI",
+            "QAA"
+          ],
+          "type": "string"
+        },
+        "regulatingBodyRef": {
+          "description": "The reference number to validate that the course is regulated",
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
+        },
+        "qualificationName": {
+          "description": "(Read-only)",
+          "type": "string"
+        },
+        "awardingBodyName": {
+          "description": "(Read-only)",
+          "type": "string"
+        },
+        "isProfessional": {
+          "description": "(Read-only)",
+          "type": "boolean"
+        }
+      }
+    },
+    "CourseCpdModel": {
+      "required": [
+        "cpdAmount",
+        "cpdAccreditingBody"
+      ],
+      "type": "object",
+      "properties": {
+        "cpdAmount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "cpdAccreditingBody": {
+          "description": "e.g. The CPD Certification Service",
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
+        }
+      }
+    },
+    "CourseSubjectModel": {
+      "required": [
+        "subjectId"
+      ],
+      "type": "object",
+      "properties": {
+        "subjectId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "subjectName": {
+          "description": "(Read-only)",
+          "type": "string"
+        }
+      }
+    },
+    "CourseClassroomModel": {
+      "required": [
+        "venuePostcode"
+      ],
+      "type": "object",
+      "properties": {
+        "venuePostcode": {
+          "maxLength": 16,
+          "minLength": 0,
+          "type": "string"
+        },
+        "venueName": {
+          "maxLength": 250,
+          "minLength": 0,
+          "type": "string"
+        },
+        "dates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CourseDateModel"
+          }
+        },
+        "addressLine1": {
+          "maxLength": 100,
+          "minLength": 0,
+          "pattern": "^((?!&#\\w{1,6};)(?!&#)(?!;).)*$",
+          "type": "string"
+        },
+        "addressLine2": {
+          "maxLength": 100,
+          "minLength": 0,
+          "pattern": "^((?!&#\\w{1,6};)(?!&#)(?!;).)*$",
+          "type": "string"
+        },
+        "town": {
+          "maxLength": 100,
+          "minLength": 0,
+          "type": "string"
+        },
+        "county": {
+          "maxLength": 100,
+          "minLength": 0,
+          "type": "string"
+        },
+        "countryCode": {
+          "description": "The two-letter (ISO 3166-1 alpha-2) code of the country",
+          "default": "GB",
+          "maxLength": 2,
+          "minLength": 0,
+          "type": "string"
+        }
+      }
+    },
+    "CourseScreeningQuestionModel": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "maxLength": 100,
+          "minLength": 0,
+          "type": "string"
+        },
+        "expectedAnswer": {
+          "type": "boolean"
+        },
+        "autoReject": {
+          "type": "boolean"
+        }
+      }
+    },
+    "CourseMediaModel": {
+      "required": [
+        "url"
+      ],
+      "type": "object",
+      "properties": {
+        "title": {
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
+        },
+        "url": {
+          "maxLength": 1000,
+          "minLength": 0,
+          "type": "string"
+        },
+        "thumbnailUrl": {
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
+        },
+        "category": {
+          "description": " Specify the category of the media. Permitted values are:\r\n- None = applicable to any media type\r\n- CourseBrochure = applicable to pdfs only\r\n- CourseSampleContent = applicable to pdf, images or videos\r\n- SampleCertificate = applicable to pdf or images\r\n- CourseTrailer = applicable to videos only\r\n- ProviderVideo = applicable to videos only\r\n- Testimonial = applicable to videos only\r\n\r\n Note: PDFs supplied as media will appear in the resources section on the course details page.  All course brochures uploaded will have an enquiry form behind the brochure call to action - this will be for courses on the cost per lead model only.",
+          "enum": [
+            "None",
+            "CourseBrochure",
+            "CourseSampleContent",
+            "SampleCertificate",
+            "CourseTrailer",
+            "ProviderVideo",
+            "Testimonial"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    "CourseDateModel": {
+      "required": [
+        "startDate",
+        "endDate"
+      ],
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "endDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "additionalInfo": {
+          "maxLength": 300,
+          "minLength": 0,
+          "type": "string"
+        }
+      }
+    },
+    "CourseCertificateModel": {
+      "required": [
+        "courseCertificateName",
+        "courseCertificateFormat",
+        "isAdditionalCost"
+      ],
+      "type": "object",
+      "properties": {
+        "courseCertificateName": {
+          "enum": [
+            "CertificateOfCompletion",
+            "Other",
+            "ReedCertificateOfCompletion"
+          ],
+          "type": "string"
+        },
+        "courseCertificateFormat": {
+          "enum": [
+            "DigitalCertificate",
+            "HardCopyCertificate"
+          ],
+          "type": "string"
+        },
+        "certificateName": {
+          "maxLength": 90,
+          "minLength": 0,
+          "type": "string"
+        },
+        "isAdditionalCost": {
+          "type": "boolean"
+        },
+        "price": {
+          "format": "double",
+          "type": "number"
+        },
+        "additionalInfo": {
+          "maxLength": 1350,
+          "minLength": 0,
+          "type": "string"
+        }
+      }
+    },
+    "ProviderCourseApiModel": {
+      "type": "object",
+      "properties": {
+        "course": {
+          "$ref": "#/definitions/CourseModel"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        }
+      }
+    },
+    "JsonPatchDocument[CourseModel]": {
+      "type": "object",
+      "properties": {
+        "operations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Operation[CourseModel]"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "Operation[CourseModel]": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "object"
+        },
+        "path": {
+          "type": "string"
+        },
+        "op": {
+          "type": "string"
+        },
+        "from": {
+          "type": "string"
+        }
+      }
+    },
+    "AwardingBodyModel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "QualficationModel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "isProfessional": {
+          "type": "boolean"
+        }
+      }
+    },
+    "SubjectModel": {
+      "type": "object",
+      "properties": {
+        "subjectId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "urlName": {
+          "type": "string"
+        },
+        "courseCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "parentId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubjectModel"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Basic authentication": {
+      "type": "basic",
+      "description": "Your API key should be provided during all requests via HTTP Basic Auth headers as the *basic auth username* with a blank password.\r\n\r\nAll API requests must be made over secure HTTPS. *Calls to HTTP will fail.*\r\n\r\nPlease keep your API Key safe and treat it like a password. If you think it may have been compromised please contact us to request a new API key.\r\nSee Obtaining your API credentials section on how to get your API key."
+    }
+  }
+}

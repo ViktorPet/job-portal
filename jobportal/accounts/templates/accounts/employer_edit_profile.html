@@ -1,0 +1,93 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block body %}
+{% load tz %}
+{% load widget_tweaks %}
+
+
+<div class="container mt-5">
+    <h2 class="mb-4">Edit Your Profile</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">First Name</label>
+                {{ user_form.first_name|add_class:"form-control" }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Last Name</label>
+                {{ user_form.last_name|add_class:"form-control" }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            {{ user_form.email|add_class:"form-control" }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Company Name</label>
+            {{ profile_form.company_name|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Company EIK</label>
+            {{ profile_form.company_eik }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Country</label>
+            {{ profile_form.company_country|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">City</label>
+            {{ profile_form.company_address_town|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Address street number</label>
+            {{ profile_form.company_address_street|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">PostCode</label>
+            {{ profile_form.company_address_postcode|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            {{ profile_form.company_phone_number|add_class:"form-control" }}
+        </div> 
+        <div class="mb-3">
+            <label class="form-label">Website</label>
+            {{ profile_form.company_website|add_class:"form-control" }}
+        </div> 
+        <div class="mb-3">
+            <label class="form-label">Type of Business</label>
+            {{ profile_form.type_of_business|add_class:"form-control" }}
+        </div> 
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            {{ profile_form.company_description|add_class:"form-control" }}
+        </div>  
+        <div class="mb-3">
+            <label class="form-label">Company Logo</label>
+            {{ profile_form.logo|add_class:"form-control" }}
+        </div> 
+        <div class="mb-3">
+            <label class="form-label">Picture</label>
+            {{ profile_form.company_picture|add_class:"form-control" }}
+        </div>  
+       <button type="submit" class="btn btn-primary" name="update_profile" >Save Changes</button>
+    </form>
+
+    <hr class="my-5">
+
+    <h4>Change Password</h4>
+    <form method="POST" >
+        {% csrf_token %}
+        {{ password_form.as_p }}
+        <button type="submit" class="btn btn-warning mt-3" name="change_password" value="1">Change Password</button>
+    </form>
+</div>
+{% endblock %}

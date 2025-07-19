@@ -1,0 +1,110 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block body %}
+{% load tz %}
+{% load widget_tweaks %}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Edit Your Profile</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">First Name</label>
+                {{ user_form.first_name|add_class:"form-control" }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Last Name</label>
+                {{ user_form.last_name|add_class:"form-control" }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            {{ user_form.email|add_class:"form-control" }}
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Phone Number</label>
+                {{ profile_form.phone_number|add_class:"form-control" }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Date of Birth</label>
+                {{ profile_form.date_of_birth|add_class:"form-control" }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Location</label>
+            {{ profile_form.location|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Profile Photo</label>
+            {{ profile_form.photo }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Experience</label>
+            {{ profile_form.experience|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Skills</label>
+            {{ profile_form.skills|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Education</label>
+            {{ profile_form.education|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Languages</label>
+            {{ profile_form.languages|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Preferred Job Title</label>
+            {{ profile_form.preferred_job_title|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Preferred Location</label>
+            {{ profile_form.preferred_location|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Salary Expectation</label>
+            {{ profile_form.salary_expectation|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Certifications</label>
+            {{ profile_form.certifications|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Additional Info</label>
+            {{ profile_form.additional_info|add_class:"form-control" }}
+        </div>
+
+        <div class="form-check mb-3">
+            {{ profile_form.willing_to_move }}
+            <label class="form-check-label">Willing to move for work</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary" name="update_profile" >Save Changes</button>
+    </form>
+
+    <hr class="my-5">
+
+    <h4>Change Password</h4>
+    <form method="POST" >
+        {% csrf_token %}
+        {{ password_form.as_p }}
+        <button type="submit" class="btn btn-warning mt-3" name="change_password" value="1">Change Password</button>
+    </form>
+</div>
+{% endblock %}

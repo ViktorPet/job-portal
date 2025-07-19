@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block body %}
+{% load tz %}
+{% load widget_tweaks %}
+
+
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        {% include "company_panel/sidebar.html" %}
+        <div class="col py-3">
+           
+            <h1>Hello from JOB OFFER</h1>
+            <form method="POST">
+                {% csrf_token %}
+                {{ job_offers_form.media }}
+                {{ job_offers_form.as_p }}
+                <button type="submit" >Submit </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
