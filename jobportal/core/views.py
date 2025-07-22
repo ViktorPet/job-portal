@@ -8,25 +8,29 @@ import json
 # Create your views here.
 
 def index(request): 
-    
-    print(request.user.role) 
-    
     user = request.user
     
-    if request.user.role == "employer":  
-        profile = EmployerProfile.objects.get(user_id=user.id)
-    else:  
-        profile = EmployeeProfile.objects.get(user_id=user.id)
-        
-    
-    
-    
-    jobs_data = get_reed_jobs(query='django developer')  # Call the function directly
+    # Initialize profile as None
+    profile = None
+
+    if user.is_authenticated:
+        try:
+            if hasattr(user, 'role') and user.role == "employer":  
+                profile = EmployerProfile.objects.get(user_id=user.id)
+            else:  
+                profile = EmployeeProfile.objects.get(user_id=user.id)
+        except (EmployerProfile.DoesNotExist, EmployeeProfile.DoesNotExist):
+            profile = None  # Handle missing profile gracefully
+    else:
+        # Optionally redirect to login page
+        # return redirect('login')
+        pass
+
+    jobs_data = get_reed_jobs(query='django developer')
 
     if jobs_data:
-        jobs = jobs_data.get('results', [])  # Get the list of jobs safely
-        # print(jobs)
+        jobs = jobs_data.get('results', [])
     else:
         jobs = []
-        
-    return render(request, 'core/index.html', { 'jobs': jobs, 'profile': profile})
+
+    return render(request, 'core/index.html', { 'jobs': jobs, 'profile': profile })
