@@ -98,7 +98,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'jobportal',
-        'USER': 'root',
+        'USER': 'admin',
         'PASSWORD': 'admin',
         'HOST': 'localhost',  # Or your MySQL host, like '127.0.0.1'
         'PORT': '3306',       # MySQL port (3306 by default)
