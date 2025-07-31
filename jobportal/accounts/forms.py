@@ -23,23 +23,22 @@ class UserRegistrationForm(forms.ModelForm):
             raise forms.ValidationError('Passwords do not match')
         return self.cleaned_data['password2'] 
     
+
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email') 
-        
+        fields = ['first_name', 'last_name', 'email']
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.get('instance')
+        super().__init__(*args, **kwargs)
+
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        print("Cleaned email in form:", email)
-        if not email:
-            return email  # allow empty emails if not required
-
-        qs = User.objects.filter(email=email).exclude(pk=self.instance.pk)
-        print("QuerySet result:", qs)
-        if qs.exists():
-            raise forms.ValidationError("This email address is already in use.")
+        if User.objects.exclude(pk=self.user.pk).filter(email=email).exists():
+            raise forms.ValidationError("This email address is already in use.")        
         return email
-
+    
     
 class EmployeeProfileForm(forms.ModelForm):
     class Meta:

@@ -102,8 +102,6 @@ def employee_edit_profile(request):
             profile_form = EmployeeProfileForm(request.POST, request.FILES, instance=profile)
 
             if user_form.is_valid() and profile_form.is_valid():
-                print("Submitted email:", request.POST.get('email'))
-                print("Current user email:", user.email)
                 print("Yes")
                 user_form.save()
                 profile_form.save()
@@ -164,7 +162,7 @@ def employer_edit_profile(request):
             print("Password change branch entered")
             password_form = CustomPasswordChangeForm(user, request.POST)
             user_form = UserEditForm(instance=user)
-            profile_form = EmployeeProfileForm(instance=profile)
+            profile_form = EmployerProfileForm(instance=profile)
 
             if password_form.is_valid():
                 user = password_form.save()
