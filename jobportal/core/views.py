@@ -11,7 +11,9 @@ def index(request):
     user = request.user
     
     # Initialize profile as None
-    profile = None
+    profile = None 
+    
+    print(user)
 
     if user.is_authenticated:
         try:
