@@ -10,6 +10,8 @@ import json
 def index(request): 
     user = request.user
     
+    
+    
     # Initialize profile as None
     profile = None 
     

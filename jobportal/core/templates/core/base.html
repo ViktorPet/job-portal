@@ -62,9 +62,17 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="index.html">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
+                        <li class="nav-item"></li>
+                            <a class="nav-link active" href="index.html">About</a>
                         </li>
+                       
+                        {% if user.is_authenticated and user.role == 'employee' %}
+                        <li class="nav-item">
+                                <a  class="nav-link" href="{% url 'jobs:job_list' %}"> Jobs </a>
+                        </li>
+
+                        {% endif %}
+        
                         {% if user.is_authenticated and user.role == 'employer' %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'company_panel:company_panel' %}">Company Panel</a>
@@ -72,16 +80,18 @@
                         {% endif %}
         
                         <!-- Dropdown -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="createAccountDropdown" role="button" data-bs-toggle="dropdown">
-                                Create Account
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'accounts:register' %}">Job Seeker</a></li>
-                                <li><a class="dropdown-item" href="{% url 'accounts:register_employer' %}">Company</a></li>
-                            </ul>
-                        </li>
-        
+                        {% if user.is_authenticated  == False %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="createAccountDropdown" role="button" data-bs-toggle="dropdown">
+                                    Create Account
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{% url 'accounts:register' %}">Job Seeker</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'accounts:register_employer' %}">Company</a></li>
+                                </ul>
+                            </li> 
+                        {% endif %}
+
                         {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a href="#" class="nav-link" onclick="document.getElementById('logout-form').submit(); return false;">
@@ -116,9 +126,38 @@
                           {% endif %}
                         </div>
                     {% endif %}
+                    {% if user.is_authenticated and user.role == 'employee' %}
+                    <a href="#" 
+                       id="sidebarTrigger"
+                       class="d-flex align-items-center text-decoration-none ms-3">
+                
+                        {% if profile.photo %}
+                            <img src="{{ profile.photo.url }}" 
+                                 alt="Profile" 
+                                 class="rounded-circle border border-2" 
+                                 width="40" height="40">
+                        {% else %}
+                            <img src="{% static 'core/img/default-avatar.png' %}" 
+                                 alt="Profile" 
+                                 class="rounded-circle border border-2" 
+                                 width="40" height="40">
+                        {% endif %}
+                      
+                    </a>
+                    
+                  
+                   {% endif %}
                 </div>
             </div>
         </nav>
+        <div class="offcanvas offcanvas-end bg-dark text-white" tabindex="-1" id="employerSidebar" aria-labelledby="employerSidebarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="employerSidebarLabel">Employer Dashboard</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            
+            {% include "core/_employer_sidebar.html" %}
+        </div>
         
 
 
@@ -204,6 +243,23 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'core/js/main.js' %}"></script>
+    
+    <script>
+        $(document).ready(function () {
+            // Open sidebar on hover
+            $("#sidebarTrigger").hover(function () {
+                var sidebar = new bootstrap.Offcanvas(document.getElementById('employerSidebar'));
+                sidebar.show();
+            });
+        
+            // Optional: close when mouse leaves sidebar
+            $("#employerSidebar").mouseleave(function () {
+                var sidebar = bootstrap.Offcanvas.getInstance(this);
+                sidebar.hide();
+            });
+        });
+        </script>
+        
 </body>
 
 </html>

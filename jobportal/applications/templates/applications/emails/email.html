@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Application Submitted</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+        }
+        h1 {
+            color: #333333;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #555555;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #888888;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 15px;
+        }
+        .highlight {
+            color: #0056b3;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hello {{ firstname }} {{ lastname }},</h1>
+
+        <p>
+            Thank you for submitting your job application with us.  
+            We’ve received your details and will review your application carefully.
+        </p>
+
+        <p>
+            A confirmation has been sent to your email:  
+            <span class="highlight">{{ email }}</span>
+        </p>
+
+        <p>
+            Our team will contact you shortly regarding the next steps in the hiring process.  
+            We appreciate your interest and effort in applying!
+        </p>
+
+        <div class="footer">
+            This is an automated email. Please do not reply.<br>
+            &copy; {{ firstname }}'s Application System
+        </div>
+    </div>
+</body>
+</html>

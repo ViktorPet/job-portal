@@ -98,7 +98,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'jobportal',
-        'USER': 'root',
+        'USER': 'admin',
         'PASSWORD': 'admin',
         'HOST': 'localhost',  # Or your MySQL host, like '127.0.0.1'
         'PORT': '3306',       # MySQL port (3306 by default)
@@ -206,4 +206,16 @@ CKEDITOR_CONFIGS = {
         'height': '600px',
         'toolbarCanCollapse': False,
     },
-}
+} 
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = "smtp-relay.brevo.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = "94d8b4001@smtp-brevo.com"  # use Brevo SMTP login, not Gmail
+EMAIL_HOST_PASSWORD = "8ygxPOD2WBRZpUn6"    
+DEFAULT_FROM_EMAIL = "Victor Petrov <victor.data.host@gmail.com>"  # still fine 
+
+EMAIL_SENDER = "victor.data.host@gmail.com"

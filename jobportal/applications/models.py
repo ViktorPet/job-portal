@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from company_panel.models import JobOffers
 
 
 # Create your models here.  
@@ -14,7 +15,18 @@ class Application(models.Model):
     lastname = models.CharField(max_length=150, blank=True)
     email = models.EmailField(unique=True, blank=False,error_messages={'unique': "An application with that email already exists.",})
     birthday = models.DateField()
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="applications"
+    )
+    
+    # allow multiple applications per job
+    job = models.ForeignKey(
+        JobOffers,
+        on_delete=models.CASCADE,
+        related_name="applications"
+    )
     gender = models.CharField(max_length=10, choices=GenderChoices.choices, null=True)
     education = models.TextField(blank=True)
     year_of_graduation = models.DateField()
